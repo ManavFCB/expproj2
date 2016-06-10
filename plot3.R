@@ -1,0 +1,10 @@
+library(ggplot2)
+NEI <- readRDS("summarySCC_PM25.rds")
+SCC <- readRDS("Source_Classification_Code.rds")
+sub<-NEI[NEI$fips=="24510",]
+png("plot3.png")
+typebalt<-aggregate(Emissions~year+type,sub,sum)
+typeg<-ggplot(typebalt,aes(year,Emissions,color=type))
+typeg<-typeg+geom_line()+xlab("Year")+ylab(expression("PM2.5 Emissions"))+ggtitle("Total Emissions in Baltimore by type")
+print(typeg)
+dev.off()
